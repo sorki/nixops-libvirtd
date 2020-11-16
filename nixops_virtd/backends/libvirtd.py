@@ -74,7 +74,7 @@ class LibvirtdDefinition(MachineDefinition):
 
 
 class LibvirtdState(MachineState[LibvirtdDefinition]):
-    private_ipv4 = nixops.util.attr_property("privateIpv4", None)
+    private_ipv4 = nixops.util.attr_property("privateIPv4", None)
     client_public_key = nixops.util.attr_property("libvirtd.clientPublicKey", None)
     client_private_key = nixops.util.attr_property("libvirtd.clientPrivateKey", None)
     primary_net = nixops.util.attr_property("libvirtd.primaryNet", None)
