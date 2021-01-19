@@ -378,9 +378,14 @@ class LibvirtdState(MachineState[LibvirtdDefinition]):
         return an ip v4
         """
         # alternative is VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_LEASE if qemu agent is available
-        ifaces = self.dom.interfaceAddresses(
-            libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0
-        )
+        try:
+            ifaces = self.dom.interfaceAddresses(
+                libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0
+            )
+        except libvirt.libvirtError:
+            self.log("Guest not yet connected")
+            return
+
         if ifaces is None:
             self.log("Failed to get domain interfaces")
             return
