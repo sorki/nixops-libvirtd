@@ -394,9 +394,8 @@ class LibvirtdState(MachineState[LibvirtdDefinition]):
             if val["addrs"]:
                 for ipaddr in val["addrs"]:
                     ffs = ipaddr["addr"]
-                    if
-                          ffs != "127.0.0.1"
-                      and ffs != "::1"
+                    if ffs != "127.0.0.1" \
+                      and ffs != "::1" \
                       and not ffs.startswith("169.254"):
                         return ffs # ipaddr["addr"]
 
