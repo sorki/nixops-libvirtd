@@ -393,11 +393,11 @@ class LibvirtdState(MachineState[LibvirtdDefinition]):
         for (name, val) in ifaces.items():
             if val["addrs"]:
                 for ipaddr in val["addrs"]:
-                    ffs = ipaddr["addr"]
-                    if ffs != "127.0.0.1" \
-                      and ffs != "::1" \
-                      and not ffs.startswith("169.254"):
-                        return ffs # ipaddr["addr"]
+                    a = ipaddr["addr"]
+                    if a != "127.0.0.1" \
+                      and not a.startswith("169.254") \
+                      and ipaddr["type"] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
+                        return a
 
     def _wait_for_ip(self, prev_time):
         self.log_start("waiting for IP address to appear in DHCP leases...")
